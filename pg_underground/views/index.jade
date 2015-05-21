@@ -3,7 +3,8 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  div(class='chatroom')
   form(id='chat')
-    textarea(id='chat-box', rows='20')
+    textarea(id='chat-box', rows='2')
     p
       input(type='submit' value='send')

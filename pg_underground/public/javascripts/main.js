@@ -1,6 +1,9 @@
 // ##client sends information to server ##
 
+var socket = io.connect('http://localhost:8000/')
+
 $(document).ready(function() {
+
 
   $('#chat').on('submit', function(e) {
     e.preventDefault();
@@ -11,10 +14,10 @@ $(document).ready(function() {
 
   // ##client receives information from server##
 
-  var socket = io.connect('http://localhost:8000/')
+});
 
-  socket.on('messages', function(data) {
-    // alert(data.hello);
-  });
+socket.on('messages', function(data) {
 
+  console.log('receives' + data);
+  $('div.chatroom').append(data);
 });

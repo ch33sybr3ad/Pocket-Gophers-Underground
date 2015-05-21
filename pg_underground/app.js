@@ -14,10 +14,11 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 io.on('connection', function(client) {
   console.log('connected');
-  // client.emit('messages', {hello: 'world'});
+
   client.on('messages', function(data) {
     console.log('emitted');
     console.log(data);
+    io.sockets.emit('messages', data);
   });
 });
 server.listen(8000);
