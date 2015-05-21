@@ -1,4 +1,4 @@
-// ##client sents information to server ##
+// ##client sends information to server ##
 
 $(document).ready(function() {
 
