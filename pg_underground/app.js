@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var redis = require('redis')
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -12,12 +13,27 @@ var app = express();
 
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
+
+redisClient = redis.createClient();
+
 io.on('connection', function(client) {
+
   console.log('connected');
 
+  client.on('join', function(name) {
+    client.name = name
+    console.log(client.name);
+    redisClient.lrange('messages', 0, -1, function(err, messages) {
+      messages.reverse().forEach(function(message) {
+        client.emit('messages', message)
+      });
+    });
+  });
+
   client.on('messages', function(data) {
-    console.log('emitted');
     console.log(data);
+    redisClient.lpush('messages', data);
+    redisClient.ltrim('messages', 0, 49);
     io.sockets.emit('messages', data);
   });
 });
