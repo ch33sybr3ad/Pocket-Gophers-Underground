@@ -1,9 +1,12 @@
 extends layout
 
+
 block content
-  h1= title
-  p Welcome to #{title}
+  div(class='container')
+    h1= title
+    p Welcome to #{title}
   div(class='chatroom')
+    div(class='picture')
   form(id='chat')
     textarea(id='chat-box', rows='2')
     p

@@ -1,6 +1,8 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: rgb(173, 202, 236);
+  opacity: 70%;
 }
 
 a {
@@ -8,11 +10,24 @@ a {
 }
 
 textarea {
-  width: 500px;
+  width: 100%;
 }
 
 .chatroom {
+  width: 100%;
   height: 300px;
   overflow: scroll;
   border: 1px solid black;
+  background-color: rgb(252, 249, 249);
+}
+
+.picture{
+  height: 300px;
+  float:right;
+  width: 60%;
+}
+.muted { color: #ccc; }
+
+.container {
+  text-align: center;
 }

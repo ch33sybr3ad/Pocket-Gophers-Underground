@@ -31,10 +31,10 @@ io.on('connection', function(client) {
   });
 
   client.on('messages', function(data) {
-    console.log(data);
-    redisClient.lpush('messages', data);
+    var stringy = JSON.stringify({ data: data, name: client.name, date: new Date().toUTCString()});
+    redisClient.lpush('messages', stringy );
     redisClient.ltrim('messages', 0, 49);
-    io.sockets.emit('messages', data);
+    io.sockets.emit('messages', stringy );
   });
 });
 server.listen(8000);

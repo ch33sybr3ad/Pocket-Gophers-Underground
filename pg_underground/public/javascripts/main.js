@@ -1,10 +1,10 @@
 // ##client sends information to server ##
 
 var socket = io.connect('http://localhost:8000/')
-var name;
 $(document).ready(function() {
 
-  socket.emit('join', (name = prompt('What is your name?')));
+  // checkPass();
+  socket.emit('join', prompt('What is your name?'));
 
   $('#chat').on('submit', function(e) {
     e.preventDefault();
@@ -17,6 +17,13 @@ $(document).ready(function() {
 });
 
 socket.on('messages', function(data) {
-  console.log('receives' + data);
-  $('div.chatroom').append("<p>" +data+ new Date.toUTCString()+ "</p>");
+  data = JSON.parse(data);
+  $('div.chatroom').append("<p>" +"<span class='muted'>" +data.date+ "</span></p><blockquote>" +data.name+ ": " +data.data+ "</blockquote>");
 });
+
+function checkPass() {
+  var password = prompt("Who is our captain and leader?")
+  if (password !== "Jordan") {
+    checkPass();
+  }
+}
