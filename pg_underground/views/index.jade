@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  form(id='chat')
+    textarea(id='chat-box')
+    input(type='submit' value='send')
