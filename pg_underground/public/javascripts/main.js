@@ -3,7 +3,7 @@
 var socket = io.connect('http://localhost:8000/')
 $(document).ready(function() {
 
-  // checkPass();
+  checkPass();
   socket.emit('join', prompt('What is your name?'));
 
   $('#chat').on('submit', function(e) {
