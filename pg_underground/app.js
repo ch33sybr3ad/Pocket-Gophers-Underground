@@ -16,13 +16,16 @@ var io = require('socket.io')(server);
 
 redisClient = redis.createClient();
 
+var clients = {};
+
 io.on('connection', function(client) {
 
-  console.log('connected');
+  clients[client.id] = client;
+  console.log(Object.keys(clients).length + 'are logged in');
 
   client.on('join', function(name) {
     client.name = name
-    console.log(client.name);
+    console.log(client.name + ' joined');
     redisClient.lrange('messages', 0, -1, function(err, messages) {
       messages.reverse().forEach(function(message) {
         client.emit('messages', message)
@@ -36,7 +39,43 @@ io.on('connection', function(client) {
     redisClient.ltrim('messages', 0, 49);
     io.sockets.emit('messages', stringy );
   });
+
+  client.on('disconnect', function() {
+    delete clients[client.id];
+    console.log('one user logged out' +Object.keys(clients).length + ' clients are still on');
+  });
 });
+
+var cards = [1,2,3,4,5,6,7,8,9,10]
+
+io.on('connection', function(client) {
+
+  console.log('game function is connecting as well')
+
+  client.on('start', function(){
+    console.log(client.name + "~~~~~~~");
+    var rand = Math.floor(Math.random() * cards.length);
+    client.emit('deal', (client.card = cards.splice(rand, 1)[0]));
+    console.log(client.card);
+    console.log(cards)
+  });
+
+  client.on('ready', function() {
+    var max = 0;
+    var winner;
+    for (var i in clients) {
+      if (clients[i].card > max) {
+        max = clients[i].card;
+        winner = clients[i];
+      }
+    }
+    console.log(winner.name)
+    winner.broadcast.emit('lose', winner.name);
+    winner.emit('win');
+  });
+
+});
+
 server.listen(8000);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
