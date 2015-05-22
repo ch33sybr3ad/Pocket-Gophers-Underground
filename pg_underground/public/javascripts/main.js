@@ -16,7 +16,7 @@ $(document).ready(function() {
 
   $('.start').on('click', function() {
     socket.emit('start');
-    $('.start').attr('disabled', 'disabled');
+    // $('.start').attr('disabled', 'disabled');
   });
 
   $('.ready').on('click', function() {
@@ -33,8 +33,14 @@ socket.on('messages', function(data) {
   $('div.chatroom').append("<p>" +"<span class='muted'>" +data.date+ "</span></p><blockquote>" +data.name+ ": " +data.data+ "</blockquote>");
 });
 
-socket.on('deal', function(card){
-  $('div.card').append(card)
+socket.on('deal', function(cards){
+  console.log(cards);
+  console.log(JSON.parse(cards));
+  $('div.card-show').empty();
+
+  JSON.parse(cards).forEach(function(card) {
+    $('div.card-show').append("<p>" +card+ "</p>")
+  });
 });
 
 socket.on('lose', function(name) {
@@ -43,6 +49,11 @@ socket.on('lose', function(name) {
 
 socket.on('win', function() {
   alert('You win!!!!!')
+});
+
+socket.on('reset', function() {
+  $('.start').removeAttr('disabled');
+  $('div.card p').remove();
 });
 
 function checkPass() {

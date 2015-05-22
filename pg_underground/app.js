@@ -46,36 +46,46 @@ io.on('connection', function(client) {
   });
 });
 
-var cards = [1,2,3,4,5,6,7,8,9,10]
+var cards = [1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10]
+
 
 io.on('connection', function(client) {
+  client.cards = [];
+  client.ready = false;
 
   console.log('game function is connecting as well')
-
   client.on('start', function(){
     console.log(client.name + "~~~~~~~");
     var rand = Math.floor(Math.random() * cards.length);
-    client.emit('deal', (client.card = cards.splice(rand, 1)[0]));
-    console.log(client.card);
+    client.cards.push(cards.splice(rand, 1)[0]);
+    client.emit('deal', JSON.stringify(client.cards));
+    console.log(client.cards);
     console.log(cards)
   });
 
   client.on('ready', function() {
-    var max = 0;
-    var winner;
-    for (var i in clients) {
-      if (clients[i].card > max) {
-        max = clients[i].card;
-        winner = clients[i];
-      }
-    }
-    console.log(winner.name)
-    winner.broadcast.emit('lose', winner.name);
-    winner.emit('win');
+    client.ready = true
+
   });
+
 
 });
 
+//not valid yet (works for single high/low game)
+function winCondition() {
+  var max = 0;
+  var winner;
+  for (var i in clients) {
+    if (clients[i].card > max) {
+      max = clients[i].card;
+      winner = clients[i];
+    }
+  }
+  console.log(winner.name)
+  winner.broadcast.emit('lose', winner.name);
+  winner.emit('win');
+  io.sockets.emit('reset')
+}
 server.listen(8000);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
