@@ -21,10 +21,12 @@ textarea {
   background-color: rgb(252, 249, 249);
 }
 
-.picture{
+.users{
   height: 300px;
-  float:right;
-  width: 60%;
+  float:left;
+  width: 20%;
+  background-color: grey;
+  margin-right: 20px
 }
 .muted { color: #ccc; }
 
