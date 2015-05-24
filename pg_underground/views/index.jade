@@ -6,13 +6,16 @@ block content
     h1= title
     p Welcome to #{title}
   div(class='chatroom')
-    div(class='picture')
+    div(class='users')
   form(id='chat')
     textarea(id='chat-box', rows='2')
     p
       input(type='submit' value='send')
-  div(class='card')
+  div(class='cardwrap')
     button(class='start').
-      Get Card
+      Start Game
+    button(class='draw').
+      Draw Card
     button(class='ready').
       Ready
+    div(class='card-show')

@@ -21,10 +21,12 @@ textarea {
   background-color: rgb(252, 249, 249);
 }
 
-.picture{
+.users{
   height: 300px;
-  float:right;
-  width: 60%;
+  float:left;
+  width: 20%;
+  background-color: grey;
+  margin-right: 20px
 }
 .muted { color: #ccc; }
 
@@ -32,8 +34,22 @@ textarea {
   text-align: center;
 }
 
-.card {
+.cardwrap {
   width:100%;
   height: 300px;
   background-color: white;
+}
+
+.card {
+  margin: 10px;
+  height: 60px;
+  width: 40px;
+  border: 1px solid black;
+  text-align: center;
+  float: left;
+}
+
+.card p {
+  position: relative;
+  top: 10%;
 }
