@@ -64,7 +64,7 @@ socket.on('deal', function(cards){
   $('div.card-show').empty();
 
   JSON.parse(cards).forEach(function(card) {
-    $('div.card-show').append("<p>" +card+ "</p>")
+    $('div.card-show').append("<div class='card'><p>" +card+ "</p></div>")
   });
 });
 
@@ -78,6 +78,8 @@ socket.on('win', function() {
 
 socket.on('reset', function() {
   $('.start').removeAttr('disabled');
+  $('.draw').removeAttr('disabled');
+  $('.ready').removeAttr('disabled');
   $('div.card p').remove();
 });
 

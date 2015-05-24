@@ -54,7 +54,12 @@ io.on('connection', function(client) {
   });
 });
 
-var cards = [1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10]
+var cards = [
+  1,2,3,4,5,6,7,8,9,10,10,10,10,
+  1,2,3,4,5,6,7,8,9,10,10,10,10,
+  1,2,3,4,5,6,7,8,9,10,10,10,10,
+  1,2,3,4,5,6,7,8,9,10,10,10,10
+]
 // deals with playing card game
 io.on('connection', function(client) {
   console.log('game function is connecting as well')
@@ -139,7 +144,7 @@ function getPlayers() {
 function checkEveryoneReady() {
   if (!getPlayers()[0]) { return false }
   return getPlayers().every(function(player) {
-    return player.ready
+    return player.ready;
   });
 }
 
@@ -147,9 +152,15 @@ function resetGame() {
   getPlayers().forEach(function(player) {
     player.playing = false;
     player.ready = false;
+    player.cards = [];
     player.emit('reset');
   });
-  cards = [1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10]
+  cards = [
+    1,2,3,4,5,6,7,8,9,10,10,10,10,
+    1,2,3,4,5,6,7,8,9,10,10,10,10,
+    1,2,3,4,5,6,7,8,9,10,10,10,10,
+    1,2,3,4,5,6,7,8,9,10,10,10,10
+  ]
 }
 
 server.listen(8000);
