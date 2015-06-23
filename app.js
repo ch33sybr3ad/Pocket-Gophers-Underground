@@ -170,7 +170,7 @@ function resetGame() {
   ]
 }
 
-// server.listen(8000);
+server.listen(process.env.PORT || 8000);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
