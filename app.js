@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var redis = require('redis')
+var port = process.env.PORT || 8000
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -170,7 +171,7 @@ function resetGame() {
   ]
 }
 
-server.listen(8000);
+server.listen(port);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
