@@ -1,0 +1,61 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node',
+1 verbose cli   '/usr/bin/npm',
+1 verbose cli   'owner',
+1 verbose cli   'ls',
+1 verbose cli   'pg_underground' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.37
+4 verbose node symlink /usr/bin/node
+5 verbose request where is /pg_underground
+6 verbose request registry https://registry.npmjs.org/
+7 verbose request id 5d1393c0dbe1101e
+8 verbose url raw /pg_underground
+9 verbose url resolving [ 'https://registry.npmjs.org/', './pg_underground' ]
+10 verbose url resolved https://registry.npmjs.org/pg_underground
+11 verbose request where is https://registry.npmjs.org/pg_underground
+12 info trying registry request attempt 1 at 14:59:26
+13 http GET https://registry.npmjs.org/pg_underground
+14 http 404 https://registry.npmjs.org/pg_underground
+15 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+15 verbose headers   'content-type': 'application/json',
+15 verbose headers   'cache-control': 'max-age=0',
+15 verbose headers   'content-length': '51',
+15 verbose headers   'accept-ranges': 'bytes',
+15 verbose headers   date: 'Tue, 23 Jun 2015 21:59:26 GMT',
+15 verbose headers   via: '1.1 varnish',
+15 verbose headers   age: '0',
+15 verbose headers   connection: 'keep-alive',
+15 verbose headers   'x-served-by': 'cache-sjc3121-SJC',
+15 verbose headers   'x-cache': 'MISS',
+15 verbose headers   'x-cache-hits': '0',
+15 verbose headers   'x-timer': 'S1435096766.375307,VS0,VE39' }
+16 silly registry.get cb [ 404,
+16 silly registry.get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+16 silly registry.get     'content-type': 'application/json',
+16 silly registry.get     'cache-control': 'max-age=0',
+16 silly registry.get     'content-length': '51',
+16 silly registry.get     'accept-ranges': 'bytes',
+16 silly registry.get     date: 'Tue, 23 Jun 2015 21:59:26 GMT',
+16 silly registry.get     via: '1.1 varnish',
+16 silly registry.get     age: '0',
+16 silly registry.get     connection: 'keep-alive',
+16 silly registry.get     'x-served-by': 'cache-sjc3121-SJC',
+16 silly registry.get     'x-cache': 'MISS',
+16 silly registry.get     'x-cache-hits': '0',
+16 silly registry.get     'x-timer': 'S1435096766.375307,VS0,VE39' } ]
+17 error owner ls Couldn't get owner data pg_underground
+18 error 404 404 Not Found: pg_underground
+18 error 404
+18 error 404 'pg_underground' is not in the npm registry.
+18 error 404 You should bug the author to publish it
+18 error 404
+18 error 404 Note that you can also install from a
+18 error 404 tarball, folder, or http url, or git url.
+19 error System Linux 3.16.0-41-generic
+20 error command "/usr/bin/node" "/usr/bin/npm" "owner" "ls" "pg_underground"
+21 error cwd /home/andrew/Desktop/projects/Pocket-Gophers-Underground
+22 error node -v v0.10.37
+23 error npm -v 1.4.28
+24 error code E404
+25 verbose exit [ 1, true ]
