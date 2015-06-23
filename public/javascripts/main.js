@@ -1,6 +1,6 @@
 // ##client sends information to server ##
 
-var socket = io.connect('http://localhost:8000/')
+var socket = io.connect(window.location.origin)
 $(document).ready(function() {
 
 
