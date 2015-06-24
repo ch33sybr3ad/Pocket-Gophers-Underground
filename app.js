@@ -34,7 +34,7 @@ io.on('connection', function(client) {
   var names = [];
 
   client.on('join', function(name) {
-    client.name = name
+    client.name = name;
     for (var i in clients) {
       names.push(clients[i].name);
     }
@@ -42,7 +42,7 @@ io.on('connection', function(client) {
     console.log(client.name + ' joined');
     redisClient.lrange('messages', 0, -1, function(err, messages) {
       messages.reverse().forEach(function(message) {
-        client.emit('messages', message)
+        client.emit('messages', message);
       });
     });
   });
@@ -69,7 +69,7 @@ var cards = [
   1,2,3,4,5,6,7,8,9,10,10,10,10,
   1,2,3,4,5,6,7,8,9,10,10,10,10,
   1,2,3,4,5,6,7,8,9,10,10,10,10
-]
+];
 // deals with playing card game
 io.on('connection', function(client) {
   console.log('game function is connecting as well')
@@ -98,7 +98,7 @@ io.on('connection', function(client) {
   });
 
   client.on('ready', function() {
-    if (client.playing === false) { return; }
+    if (!client.playing) { return; }
     console.log(client.name + " is ready to show his cards");
     client.ready = true
     if (checkEveryoneReady()) {
@@ -107,7 +107,7 @@ io.on('connection', function(client) {
         winCondition();
       } else {
         client.emit('loner');
-        resetGame()
+        resetGame();
       }
     }
   });
@@ -132,19 +132,23 @@ function winCondition() {
       player.emit('lose');
     }
   });
-  resetGame()
+  resetGame();
 }
 
 function count(client) {
   return client.cards.reduce(function(sum, card) {
-    return sum + card
+    return sum + card;
   }, 0);
 }
 
 function getPlayers() {
-  return clients.filter(function(client) {
-    return client.playing
-  });
+  var players = [];
+  for (var i in clients) {
+    if (clients[i].playing === true) {
+      players.push(clients[i]);
+    }
+  }
+  return players;
 }
 
 function checkEveryoneReady() {
@@ -166,7 +170,7 @@ function resetGame() {
     1,2,3,4,5,6,7,8,9,10,10,10,10,
     1,2,3,4,5,6,7,8,9,10,10,10,10,
     1,2,3,4,5,6,7,8,9,10,10,10,10
-  ]
+  ];
 }
 
 server.listen(process.env.PORT || 8000);
