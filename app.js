@@ -31,7 +31,7 @@ io.on('connection', function(client) {
 
   clients[client.id] = client;
   console.log(Object.keys(clients).length + 'are logged in');
-    var names = [];
+  var names = [];
 
   client.on('join', function(name) {
     client.name = name
@@ -39,7 +39,6 @@ io.on('connection', function(client) {
       names.push(clients[i].name);
     }
     io.sockets.emit('allchatters', names);
-    console.log(names)
     console.log(client.name + ' joined');
     redisClient.lrange('messages', 0, -1, function(err, messages) {
       messages.reverse().forEach(function(message) {
@@ -49,7 +48,10 @@ io.on('connection', function(client) {
   });
 
   client.on('messages', function(data) {
-    var stringy = JSON.stringify({ data: data, name: client.name, date: new Date().toUTCString()});
+    var stringy = JSON.stringify({
+      data: data, name: client.name,
+      date: new Date().toUTCString()
+    });
     redisClient.lpush('messages', stringy );
     redisClient.ltrim('messages', 0, 49);
     io.sockets.emit('messages', stringy );
@@ -59,7 +61,6 @@ io.on('connection', function(client) {
     delete clients[client.id];
     names.splice(names.indexOf(client.name));
     io.sockets.emit('allchatters', names);
-    console.log('one user logged out' +Object.keys(clients).length + ' clients are still on');
   });
 });
 
@@ -141,13 +142,9 @@ function count(client) {
 }
 
 function getPlayers() {
-  var players = [];
-  for (var i in clients) {
-    if (clients[i].playing === true) {
-      players.push(clients[i]);
-    }
-  }
-  return players;
+  return clients.filter(function(client) {
+    return client.playing
+  });
 }
 
 function checkEveryoneReady() {
